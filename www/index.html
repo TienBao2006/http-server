@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CS631 APUE HTTP/1.0 Server</title>
+  <style>
+    :root {
+      --bg: #0b0f19;
+      --card-bg: #111827;
+      --accent: #38bdf8;
+      --accent-glow: rgba(56, 189, 248, 0.15);
+      --text: #f3f4f6;
+      --text-muted: #9ca3af;
+      --border: #1f2937;
+      --success: #10b981;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      background: radial-gradient(circle at 50% 0%, #1e293b 0%, var(--bg) 80%);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 60px 20px;
+    }
+    .container {
+      max-width: 840px;
+      width: 100%;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 6px 14px;
+      background: var(--accent-glow);
+      border: 1px solid var(--accent);
+      border-radius: 9999px;
+      color: var(--accent);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      margin-bottom: 16px;
+      text-transform: uppercase;
+    }
+    h1 {
+      font-size: 38px;
+      font-weight: 800;
+      letter-spacing: -0.025em;
+      margin-bottom: 12px;
+      background: linear-gradient(135deg, #ffffff 40%, var(--accent) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    p.lead {
+      color: var(--text-muted);
+      font-size: 17px;
+      line-height: 1.6;
+      max-width: 620px;
+      margin: 0 auto;
+    }
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      margin-bottom: 40px;
+    }
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: var(--accent);
+    }
+    .card h3 {
+      font-size: 18px;
+      margin-bottom: 10px;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .card p {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+    .links-bar {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      margin-top: 20px;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: #0b0f19;
+    }
+    .btn-primary:hover {
+      background: #7dd3fc;
+      box-shadow: 0 0 20px rgba(56, 189, 248, 0.4);
+    }
+    .btn-secondary {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      color: var(--text);
+    }
+    .btn-secondary:hover {
+      border-color: var(--text-muted);
+      background: #1f2937;
+    }
+    footer {
+      margin-top: auto;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 13px;
+      padding-top: 40px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="badge">APUE HTTP/1.0 Server</div>
+      <h1>CS631 Advanced UNIX Web Server</h1>
+      <p class="lead">Strict POSIX C99 compliance, multi-process fork architecture, CGI 1.1 execution, and secure directory navigation.</p>
+    </header>
+
+    <div class="card-grid">
+      <div class="card">
+        <h3>⚡ Multi-Process Model</h3>
+        <p>Uses <code>fork()</code> on incoming connections with asynchronous non-blocking <code>SIGCHLD</code> zombie process reaping via <code>waitpid(-1, WNOHANG)</code>.</p>
+      </div>
+      <div class="card">
+        <h3>🛡️ Traversal Protection</h3>
+        <p>Strict path sanitization and canonical <code>realpath()</code> boundaries prevent <code>..</code> directory traversal attacks.</p>
+      </div>
+      <div class="card">
+        <h3>🔄 HTTP Caching</h3>
+        <p>Full support for <code>If-Modified-Since</code> request header returning <code>304 Not Modified</code> with zero body transfer.</p>
+      </div>
+      <div class="card">
+        <h3>⚙️ CGI 1.1 Support</h3>
+        <p>Dynamic execution of CGI programs using <code>pipe()</code>, <code>fork()</code>, <code>dup2()</code>, and <code>execve()</code> with standard environment variables.</p>
+      </div>
+    </div>
+
+    <div class="links-bar">
+      <a href="/about.html" class="btn btn-secondary">About Project</a>
+      <a href="/cgi-bin/hello.cgi?user=cs631&topic=apue" class="btn btn-primary">Run CGI Test &rarr;</a>
+    </div>
+
+    <footer>
+      <p>cs631-httpd &bull; Advanced Programming in the UNIX Environment</p>
+    </footer>
+  </div>
+</body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About - CS631 HTTP/1.0 Server</title>
+  <style>
+    :root {
+      --bg: #0b0f19;
+      --card-bg: #111827;
+      --accent: #38bdf8;
+      --text: #f3f4f6;
+      --text-muted: #9ca3af;
+      --border: #1f2937;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: radial-gradient(circle at 50% 0%, #1e293b 0%, var(--bg) 80%);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 60px 20px;
+    }
+    .container {
+      max-width: 760px;
+      width: 100%;
+    }
+    .back-link {
+      display: inline-block;
+      color: var(--accent);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 24px;
+    }
+    .back-link:hover { text-decoration: underline; }
+    h1 {
+      font-size: 32px;
+      margin-bottom: 16px;
+      color: #fff;
+    }
+    .content-box {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 32px;
+      line-height: 1.7;
+    }
+    h2 {
+      font-size: 20px;
+      color: var(--accent);
+      margin: 24px 0 12px 0;
+    }
+    h2:first-of-type { margin-top: 0; }
+    p { margin-bottom: 14px; color: #cbd5e1; font-size: 15px; }
+    ul { margin-left: 20px; margin-bottom: 16px; color: #cbd5e1; font-size: 15px; }
+    li { margin-bottom: 6px; }
+    code {
+      background: #1f2937;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: monospace;
+      font-size: 13px;
+      color: #38bdf8;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="/" class="back-link">&larr; Back to Home</a>
+    <div class="content-box">
+      <h1>About the Server Architecture</h1>
+      <p>This web server was developed in accordance with the <strong>CS631 Advanced Programming in the UNIX Environment (APUE)</strong> course syllabus.</p>
+
+      <h2>RFC 1945 HTTP/1.0 Implementation</h2>
+      <p>The server enforces strict compliance with the HTTP/1.0 specification, including:</p>
+      <ul>
+        <li>Supported request methods: <code>GET</code> and <code>HEAD</code>. Any unimplemented method yields a <code>501 Not Implemented</code> response.</li>
+        <li>Mandatory response headers: <code>Date</code>, <code>Server</code>, <code>Last-Modified</code>, <code>Content-Type</code>, and <code>Content-Length</code>.</li>
+        <li>Date headers formatted to RFC 1123 GMT standards via <code>strftime</code>.</li>
+        <li>Conditional GET handling using <code>If-Modified-Since</code>, avoiding unnecessary payload transfers with <code>304 Not Modified</code>.</li>
+      </ul>
+
+      <h2>UNIX Systems Programming Concepts</h2>
+      <ul>
+        <li><strong>Dæmonization:</strong> Detaches from terminal via dual <code>fork()</code>, <code>setsid()</code>, <code>chdir("/")</code>, <code>umask(0)</code>, and redirection of standard file descriptors.</li>
+        <li><strong>Concurrency:</strong> Multi-process model forking worker processes per client connection with non-blocking <code>SIGCHLD</code> reaping.</li>
+        <li><strong>User Directories:</strong> Resolves <code>~username/</code> requests to <code>/home/&lt;user&gt;/public_html/</code> via POSIX <code>getpwnam()</code>.</li>
+        <li><strong>Auto-indexing:</strong> Dynamic HTML directory index generation with <code>opendir()</code> and <code>readdir()</code>.</li>
+        <li><strong>CGI 1.1:</strong> Process isolation using <code>pipe()</code>, <code>dup2()</code>, and <code>execve()</code>.</li>
+      </ul>
+    </div>
+  </div>
+</body>
+</html>
