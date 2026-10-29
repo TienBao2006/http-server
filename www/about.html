@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>About - CS631 HTTP/1.0 Server</title>
+  <title>Giới Thiệu - CS631 HTTP/1.0 Server</title>
   <style>
     :root {
       --bg: #0b0f19;
@@ -52,7 +52,9 @@
     h2 {
       font-size: 20px;
       color: var(--accent);
-      margin: 24px 0 12px 0;
+      margin: 28px 0 12px 0;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 8px;
     }
     h2:first-of-type { margin-top: 0; }
     p { margin-bottom: 14px; color: #cbd5e1; font-size: 15px; }
@@ -66,31 +68,75 @@
       font-size: 13px;
       color: #38bdf8;
     }
+    .team-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 12px;
+      margin: 16px 0 24px 0;
+    }
+    .member-badge {
+      background: #1e293b;
+      border: 1px solid #334155;
+      padding: 12px;
+      border-radius: 8px;
+      text-align: center;
+      font-weight: 600;
+      color: #f8fafc;
+      font-size: 15px;
+    }
+    .member-badge span {
+      display: block;
+      font-size: 12px;
+      color: var(--accent);
+      font-weight: normal;
+      margin-top: 4px;
+    }
   </style>
 </head>
 <body>
   <div class="container">
-    <a href="/" class="back-link">&larr; Back to Home</a>
+    <a href="/" class="back-link">&larr; Quay lại Trang chủ</a>
     <div class="content-box">
-      <h1>About the Server Architecture</h1>
-      <p>This web server was developed in accordance with the <strong>CS631 Advanced Programming in the UNIX Environment (APUE)</strong> course syllabus.</p>
+      <h1>Kiến Trúc & Đồ Án Web Server</h1>
+      <p>Dự án được thực hiện theo yêu cầu môn học <strong>Advanced Programming in the UNIX Environment (APUE)</strong>.</p>
 
-      <h2>RFC 1945 HTTP/1.0 Implementation</h2>
-      <p>The server enforces strict compliance with the HTTP/1.0 specification, including:</p>
+      <h2>👥 Thành Viên Thực Hiện Đồ Án</h2>
+      <div class="team-list">
+        <div class="member-badge">
+          Tiến Bảo
+          <span>Thành viên</span>
+        </div>
+        <div class="member-badge">
+          Việt Ân
+          <span>Thành viên</span>
+        </div>
+        <div class="member-badge">
+          Lê An
+          <span>Thành viên</span>
+        </div>
+        <div class="member-badge">
+          Biên
+          <span>Thành viên</span>
+        </div>
+      </div>
+
+      <h2>Giao Thức HTTP/1.0 (RFC 1945)</h2>
+      <p>Hệ thống tuân thủ nghiêm ngặt các quy chuẩn của HTTP/1.0:</p>
       <ul>
-        <li>Supported request methods: <code>GET</code> and <code>HEAD</code>. Any unimplemented method yields a <code>501 Not Implemented</code> response.</li>
-        <li>Mandatory response headers: <code>Date</code>, <code>Server</code>, <code>Last-Modified</code>, <code>Content-Type</code>, and <code>Content-Length</code>.</li>
-        <li>Date headers formatted to RFC 1123 GMT standards via <code>strftime</code>.</li>
-        <li>Conditional GET handling using <code>If-Modified-Since</code>, avoiding unnecessary payload transfers with <code>304 Not Modified</code>.</li>
+        <li>Hỗ trợ phương thức: <code>GET</code> và <code>HEAD</code>. Các phương thức khác trả về <code>501 Not Implemented</code>.</li>
+        <li>Tiêu đề phản hồi chuẩn: <code>Date</code>, <code>Server</code>, <code>Last-Modified</code>, <code>Content-Type</code>, <code>Content-Length</code>.</li>
+        <li>Định dạng thời gian theo chuẩn RFC 1123 GMT qua hàm <code>strftime</code>.</li>
+        <li>Hỗ trợ tiêu đề <code>If-Modified-Since</code>: trả về <code>304 Not Modified</code> nếu tài nguyên chưa thay đổi.</li>
       </ul>
 
-      <h2>UNIX Systems Programming Concepts</h2>
+      <h2>Lập Trình Hệ Thống UNIX / POSIX</h2>
       <ul>
-        <li><strong>Dæmonization:</strong> Detaches from terminal via dual <code>fork()</code>, <code>setsid()</code>, <code>chdir("/")</code>, <code>umask(0)</code>, and redirection of standard file descriptors.</li>
-        <li><strong>Concurrency:</strong> Multi-process model forking worker processes per client connection with non-blocking <code>SIGCHLD</code> reaping.</li>
-        <li><strong>User Directories:</strong> Resolves <code>~username/</code> requests to <code>/home/&lt;user&gt;/public_html/</code> via POSIX <code>getpwnam()</code>.</li>
-        <li><strong>Auto-indexing:</strong> Dynamic HTML directory index generation with <code>opendir()</code> and <code>readdir()</code>.</li>
-        <li><strong>CGI 1.1:</strong> Process isolation using <code>pipe()</code>, <code>dup2()</code>, and <code>execve()</code>.</li>
+        <li><strong>Dæmonization:</strong> Tách tiến trình chạy ngầm qua 2 lần <code>fork()</code>, <code>setsid()</code>, <code>chdir("/")</code>, <code>umask(0)</code> và chuyển hướng <code>stdin/stdout/stderr</code>.</li>
+        <li><strong>Xử lý đồng thời (Concurrency):</strong> Mô hình đa tiến trình với <code>fork()</code> trên từng kết nối, thu dọn zombie process qua <code>SIGCHLD</code> và <code>waitpid(-1, WNOHANG)</code>.</li>
+        <li><strong>Bảo mật Directory Traversal:</strong> Kiểm tra các đoạn <code>..</code> và đối chiếu phạm vi đường dẫn chuẩn bằng <code>realpath()</code>.</li>
+        <li><strong>Thư mục người dùng (User Directories):</strong> Ánh xạ <code>~username/</code> sang <code>/home/&lt;user&gt;/public_html/</code> qua hàm POSIX <code>getpwnam()</code>.</li>
+        <li><strong>Tự động lập danh mục (Auto-Indexing):</strong> Tự sinh trang HTML hiển thị tệp tin nếu thư mục không có <code>index.html</code> bằng <code>opendir()</code> và <code>readdir()</code>.</li>
+        <li><strong>Thực thi CGI 1.1:</strong> Cô lập tiến trình script qua <code>pipe()</code>, <code>dup2()</code> và <code>execve()</code>.</li>
       </ul>
     </div>
   </div>

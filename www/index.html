@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,7 +16,13 @@
       --border: #1f2937;
       --success: #10b981;
     }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
       background: radial-gradient(circle at 50% 0%, #1e293b 0%, var(--bg) 80%);
@@ -26,14 +33,17 @@
       align-items: center;
       padding: 60px 20px;
     }
+
     .container {
-      max-width: 840px;
+      max-width: 860px;
       width: 100%;
     }
+
     header {
       text-align: center;
-      margin-bottom: 48px;
+      margin-bottom: 40px;
     }
+
     .badge {
       display: inline-block;
       padding: 6px 14px;
@@ -47,6 +57,7 @@
       margin-bottom: 16px;
       text-transform: uppercase;
     }
+
     h1 {
       font-size: 38px;
       font-weight: 800;
@@ -56,19 +67,86 @@
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
+
     p.lead {
       color: var(--text-muted);
       font-size: 17px;
       line-height: 1.6;
-      max-width: 620px;
+      max-width: 650px;
       margin: 0 auto;
     }
+
+    .section-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: #f8fafc;
+      margin: 36px 0 20px 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 10px;
+    }
+
+    /* Team Section */
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px;
+      margin-bottom: 36px;
+    }
+
+    .team-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px 16px;
+      text-align: center;
+      transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .team-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--accent);
+      box-shadow: 0 8px 20px rgba(56, 189, 248, 0.12);
+    }
+
+    .avatar {
+      width: 52px;
+      height: 52px;
+      margin: 0 auto 12px auto;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #0284c7 0%, #38bdf8 100%);
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 10px rgba(56, 189, 248, 0.3);
+    }
+
+    .team-card .name {
+      font-size: 16px;
+      font-weight: 600;
+      color: #ffffff;
+      margin-bottom: 4px;
+    }
+
+    .team-card .role {
+      font-size: 13px;
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    /* Feature Grid */
     .card-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
       gap: 20px;
-      margin-bottom: 40px;
+      margin-bottom: 36px;
     }
+
     .card {
       background: var(--card-bg);
       border: 1px solid var(--border);
@@ -76,29 +154,34 @@
       padding: 24px;
       transition: transform 0.2s ease, border-color 0.2s ease;
     }
+
     .card:hover {
       transform: translateY(-4px);
       border-color: var(--accent);
     }
+
     .card h3 {
-      font-size: 18px;
+      font-size: 17px;
       margin-bottom: 10px;
       color: #ffffff;
       display: flex;
       align-items: center;
       gap: 8px;
     }
+
     .card p {
       font-size: 14px;
       color: var(--text-muted);
       line-height: 1.5;
     }
+
     .links-bar {
       display: flex;
       gap: 16px;
       justify-content: center;
-      margin-top: 20px;
+      margin-top: 10px;
     }
+
     .btn {
       display: inline-flex;
       align-items: center;
@@ -110,23 +193,28 @@
       text-decoration: none;
       transition: all 0.2s;
     }
+
     .btn-primary {
       background: var(--accent);
       color: #0b0f19;
     }
+
     .btn-primary:hover {
       background: #7dd3fc;
       box-shadow: 0 0 20px rgba(56, 189, 248, 0.4);
     }
+
     .btn-secondary {
       background: var(--card-bg);
       border: 1px solid var(--border);
       color: var(--text);
     }
+
     .btn-secondary:hover {
       border-color: var(--text-muted);
       background: #1f2937;
     }
+
     footer {
       margin-top: auto;
       text-align: center;
@@ -136,41 +224,73 @@
     }
   </style>
 </head>
+
 <body>
   <div class="container">
     <header>
       <div class="badge">APUE HTTP/1.0 Server</div>
       <h1>CS631 Advanced UNIX Web Server</h1>
-      <p class="lead">Strict POSIX C99 compliance, multi-process fork architecture, CGI 1.1 execution, and secure directory navigation.</p>
+      <p class="lead">Dự án xây dựng HTTP/1.0 Web Server theo tiêu chuẩn RFC 1945 và chuẩn POSIX C99 (APUE).</p>
     </header>
 
+    <h2 class="section-title">👥 Thành Viên Nhóm Phát Triển</h2>
+    <div class="team-grid">
+      <div class="team-card">
+        <div class="avatar">TB</div>
+        <div class="name">Tiến Bảo</div>
+        <div class="role">Thành viên</div>
+      </div>
+      <div class="team-card">
+        <div class="avatar">VÂ</div>
+        <div class="name">Việt Ân</div>
+        <div class="role">Thành viên</div>
+      </div>
+      <div class="team-card">
+        <div class="avatar">LA</div>
+        <div class="name">Lê An</div>
+        <div class="role">Thành viên</div>
+      </div>
+      <div class="team-card">
+        <div class="avatar">B</div>
+        <div class="name">Biên</div>
+        <div class="role">Thành viên</div>
+      </div>
+    </div>
+
+    <h2 class="section-title">⚡ Tính Năng Hệ Thống</h2>
     <div class="card-grid">
       <div class="card">
         <h3>⚡ Multi-Process Model</h3>
-        <p>Uses <code>fork()</code> on incoming connections with asynchronous non-blocking <code>SIGCHLD</code> zombie process reaping via <code>waitpid(-1, WNOHANG)</code>.</p>
+        <p>Sử dụng <code>fork()</code> cho mỗi kết nối, xử lý tín hiệu <code>SIGCHLD</code> thu dọn zombie process bằng
+          <code>waitpid(-1, WNOHANG)</code>.</p>
       </div>
       <div class="card">
-        <h3>🛡️ Traversal Protection</h3>
-        <p>Strict path sanitization and canonical <code>realpath()</code> boundaries prevent <code>..</code> directory traversal attacks.</p>
+        <h3>🛡️ Chống Directory Traversal</h3>
+        <p>Kiểm tra đường dẫn chặt chẽ với <code>realpath()</code> và bộ lọc bảo mật ngăn chặn tấn công vượt thư mục
+          <code>..</code>.</p>
       </div>
       <div class="card">
         <h3>🔄 HTTP Caching</h3>
-        <p>Full support for <code>If-Modified-Since</code> request header returning <code>304 Not Modified</code> with zero body transfer.</p>
+        <p>Hỗ trợ đầy đủ tiêu đề <code>If-Modified-Since</code>, phản hồi mã <code>304 Not Modified</code> giúp tiết
+          kiệm băng thông.</p>
       </div>
       <div class="card">
-        <h3>⚙️ CGI 1.1 Support</h3>
-        <p>Dynamic execution of CGI programs using <code>pipe()</code>, <code>fork()</code>, <code>dup2()</code>, and <code>execve()</code> with standard environment variables.</p>
+        <h3>⚙️ Thực Thi CGI 1.1</h3>
+        <p>Hỗ trợ script động qua cơ chế <code>pipe()</code>, <code>fork()</code>, <code>dup2()</code> và
+          <code>execve()</code> với các biến môi trường chuẩn.</p>
       </div>
     </div>
 
     <div class="links-bar">
-      <a href="/about.html" class="btn btn-secondary">About Project</a>
-      <a href="/cgi-bin/hello.cgi?user=cs631&topic=apue" class="btn btn-primary">Run CGI Test &rarr;</a>
+      <a href="/about.html" class="btn btn-secondary">Thông Tin Dự Án &rarr;</a>
+      <a href="/cgi-bin/hello.cgi?user=cs631&topic=apue" class="btn btn-primary">Thử Nghiệm CGI Script &rarr;</a>
     </div>
 
     <footer>
-      <p>cs631-httpd &bull; Advanced Programming in the UNIX Environment</p>
+      <p>cs631-httpd &bull; Advanced Programming in the UNIX Environment &bull; Nhóm: Tiến Bảo - Việt Ân - Lê An - Biên
+      </p>
     </footer>
   </div>
 </body>
+
 </html>

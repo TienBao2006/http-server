@@ -234,7 +234,7 @@ int serve_directory(int client_fd, const http_request_t *req,
 
     sb_append_printf(&sb,
         "  </table>\n"
-        "  <div class=\"footer\">%s HTTP/1.0 Server</div>\n"
+        "  <div class=\"footer\">%s HTTP/1.0 Server &bull; Nhóm: Tiến Bảo - Việt Ân - Lê An - Biên</div>\n"
         "</body>\n"
         "</html>\n",
         SERVER_NAME);
